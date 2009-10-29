@@ -24,4 +24,3 @@ config.set_trust_store("/path/to/ca-concat.pem")
 || *Feature/Library used* || *2.6/ssl* || *PyOpenSSL* ||
 || Hostname matches CN field of subject DN || Yes || Yes ||
 || Hostname matches subjectAltName DNS || Yes || Not yet ||
-|| Time validity || Yes || Not yet ||
