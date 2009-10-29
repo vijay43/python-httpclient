@@ -36,7 +36,6 @@ import httplib
 import urlparse
 import base64
 import socket
-import time
 
 try:
     import ssl
@@ -228,16 +227,6 @@ class OpensslHTTPSConnection(httplib.HTTPConnection):
             if not self.host in cert_host_names:
                 raise ssl.SSLError("The certificate does not match the host name.")
             
-            # Verify the time validity for this certificate.
-            current_time = time.time()
-            if 'notBefore' in peer_cert:
-                notBeforeTime = ssl.cert_time_to_seconds(peer_cert['notBefore'])
-                if current_time < notBeforeTime:
-                    raise ssl.SSLError("The certificate is not valid yet.")
-            if 'notAfter' in peer_cert:
-                notAfterTime = ssl.cert_time_to_seconds(peer_cert['notAfter'])
-                if current_time > notAfterTime:
-                    raise ssl.SSLError("The certificate has expired.")
             return ssl_sock
         
     def __verify__callback(self, connection, x509cert, errno, depth, ret):
